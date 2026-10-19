@@ -1,427 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>yachtspotter: a DEEP pocket directory</title>
-  <style>
-    :root {
-      --bg: #09111e;
-      --card-bg: #0f1c2e;
-      --card-border: #1a2b42;
-      --text: #e2e8f0;
-      --text-muted: #64748b;
-      --accent-blue: #00b2fe;
-      --gold-bg: rgba(217, 119, 6, 0.12);
-      --gold-border: rgba(217, 119, 6, 0.35);
-      --gold-text: #fbbf24;
-      --badge-bg: #14273e;
-      --badge-text: #00b2fe;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yachtspotter: a DEEP pocket directory</title>
+    <!-- Crisp Gold Anchor App Icons for iOS & Android Home Screen Saving -->
+    <link rel="apple-touch-icon" href="https://img.icons8.com/ios-filled/500/dfb15b/anchor.png">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/192/dfb15b/anchor.png">
+    <style>
+        :root {
+            --bg-color: #0b131f;
+            --card-bg: #142235;
+            --accent: #00d2ff;
+            --gold: #dfb15b;
+            --text-main: #f0f4f8;
+            --text-sub: #94a3b8;
+            --border: #1e324d;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      padding: 24px 16px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        header {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            position: relative;
+        }
 
-    /* Top Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
-    }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
 
-    .brand-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .logo-container {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold-text);
-      cursor: pointer;
-    }
+        .header-anchor {
+            width: 38px;
+            height: 38px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
 
-    .logo-container svg {
-      width: 100%;
-      height: 100%;
-      fill: currentColor;
-    }
+        .title-group {
+            text-align: left;
+        }
 
-    .logo-picker {
-      display: flex;
-      gap: 6px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 4px;
-      border-radius: 6px;
-      margin-left: 8px;
-    }
+        h1 {
+            color: var(--accent);
+            margin: 0;
+            font-size: 2.2rem;
+            text-transform: lowercase;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+        }
 
-    .logo-option {
-      width: 24px;
-      height: 24px;
-      padding: 3px;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.15s ease;
-    }
+        p.subtitle {
+            color: var(--text-sub);
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+        p.subtitle span {
+            color: var(--gold);
+            font-weight: 700;
+        }
 
-    .logo-option svg {
-      width: 100%;
-      height: 100%;
-      fill: currentColor;
-    }
+        .save-phone-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
 
-    .logo-option.active {
-      color: var(--gold-text);
-      background: rgba(217, 119, 6, 0.15);
-    }
+        .save-phone-btn:hover {
+            background-color: var(--gold);
+            color: #000;
+        }
 
-    .title-text h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-      line-height: 1.1;
-    }
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+        }
 
-    .title-text h1 span {
-      color: var(--accent-blue);
-    }
+        input[type="text"] {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            width: 280px;
+            outline: none;
+        }
 
-    .subtitle {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
+        input[type="text"]:focus {
+            border-color: var(--accent);
+        }
 
-    .subtitle span {
-      color: #ffffff;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
+        button.btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
 
-    .save-btn {
-      background: rgba(15, 28, 46, 0.8);
-      border: 1px solid var(--gold-border);
-      color: var(--gold-text);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+        button.btn:hover, button.btn.active {
+            background-color: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
 
-    /* Search Controls */
-    .controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
 
-    .search-input {
-      flex: 1;
-      min-width: 240px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 10px 16px;
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-    }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    .search-input::placeholder {
-      color: #475569;
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
 
-    .filter-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+        .yacht-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
 
-    .pill {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: #94a3b8;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
+        .yacht-length {
+            background-color: rgba(0, 210, 255, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
 
-    .pill.active {
-      background: var(--accent-blue);
-      border-color: var(--accent-blue);
-      color: #09111e;
-    }
+        .owner-box {
+            margin-bottom: 12px;
+        }
 
-    /* Yacht Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
-    }
+        .owner-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
 
-    .yacht-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
+        .owner-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(223, 177, 91, 0.1);
+            border: 1px solid rgba(223, 177, 91, 0.3);
+            color: var(--gold);
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
+        .owner-link-btn:hover {
+            background-color: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
 
-    .yacht-name {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
+        .details {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
 
-    .length-badge {
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 178, 254, 0.2);
-    }
+        footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
 
-    .owner-section {
-      margin-bottom: 12px;
-    }
-
-    .owner-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .owner-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--gold-bg);
-      border: 1px solid var(--gold-border);
-      color: var(--gold-text);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.15s ease;
-    }
-
-    .owner-btn:hover {
-      background: rgba(217, 119, 6, 0.25);
-    }
-
-    .description {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      line-height: 1.4;
-    }
-  </style>
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            max-width: 480px;
+            width: 100%;
+            padding: 25px;
+            color: var(--text-main);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: none; border: none;
+            color: var(--text-sub); font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal-content h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+        .modal-content ol {
+            padding-left: 20px;
+            line-height: 1.6;
+            font-size: 0.92rem;
+            color: var(--text-sub);
+        }
+        .modal-content li {
+            margin-bottom: 8px;
+        }
+        .modal-content strong {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="brand-title">
-      <!-- Active SVG Display -->
-      <div class="logo-container" id="mainLogo">
-        <!-- Default: Anchor -->
-        <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
-      </div>
-
-      <!-- Icon Switcher Controls -->
-      <div class="logo-picker">
-        <div class="logo-option active" title="Anchor" onclick="switchLogo('anchor', this)">
-          <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
-        </div>
-        <div class="logo-option" title="Binoculars" onclick="switchLogo('binoculars', this)">
-          <svg viewBox="0 0 24 24"><path d="M5 3h4a2 2 0 0 1 2 2v3H9V5H5v14h4v-3h2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm10 0h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h2v3h4V5h-4v3h-2V5a2 2 0 0 1 2-2zM9 10h6v2H9v-2z"/></svg>
-        </div>
-        <div class="logo-option" title="Lighthouse" onclick="switchLogo('lighthouse', this)">
-          <svg viewBox="0 0 24 24"><path d="M11 2h2l1 3h-4l1-3zm-2 4h6l.8 4H8.2L9 6zm-1.5 5h9l1 11H6.5l1-11zM12 13a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
-        </div>
-      </div>
-
-      <div class="title-text">
-        <h1>yachtspotter</h1>
-        <div class="subtitle">a <span>DEEP</span> pocket directory</div>
-      </div>
-    </div>
-    <button class="save-btn" onclick="alert('Tap your browser share button and select Add to Home Screen')">Save to Phone 📱</button>
-  </div>
-
-  <div class="controls">
-    <input type="text" id="searchInput" class="search-input" placeholder="Search yacht or owner..." oninput="filterDirectory()">
-    <div class="filter-pills">
-      <button class="pill active" id="countPill" onclick="setFilter('all', this)">All (50)</button>
-      <button class="pill" onclick="setFilter('giga', this)">100m+ Giga</button>
-      <button class="pill" onclick="setFilter('heavy', this)">80m–99m</button>
-      <button class="pill" onclick="setFilter('under80', this)">Under 80m</button>
-    </div>
-  </div>
-
-  <div class="grid" id="yachtGrid"></div>
-
-  <script>
-    const svgIcons = {
-      anchor: `<svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>`,
-      binoculars: `<svg viewBox="0 0 24 24"><path d="M5 3h4a2 2 0 0 1 2 2v3H9V5H5v14h4v-3h2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm10 0h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h2v3h4V5h-4v3h-2V5a2 2 0 0 1 2-2zM9 10h6v2H9v-2z"/></svg>`,
-      lighthouse: `<svg viewBox="0 0 24 24"><path d="M11 2h2l1 3h-4l1-3zm-2 4h6l.8 4H8.2L9 6zm-1.5 5h9l1 11H6.5l1-11zM12 13a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>`
-    };
-
-    function switchLogo(type, el) {
-      document.getElementById('mainLogo').innerHTML = svgIcons[type];
-      document.querySelectorAll('.logo-option').forEach(opt => opt.classList.remove('active'));
-      el.classList.add('active');
-    }
-
-    const fleet = [
-      // 100m+ Giga Tier
-      { name: "Rising Sun", length: 138, category: "giga", owner: "David Geffen", bioLink: "https://www.superyachtfan.com/yacht/rising-sun/location/", desc: "Built by Lürssen. Entertainment mogul, co-founder of DreamWorks." },
-      { name: "Luminance", length: 138, category: "giga", owner: "Rinat Akhmetov", bioLink: "https://en.wikipedia.org/wiki/Rinat_Akhmetov", desc: "Built by Lürssen (2024). Ukrainian industrialist & investor." },
-      { name: "Koru", length: 127, category: "giga", owner: "Jeff Bezos", bioLink: "https://en.wikipedia.org/wiki/Jeff_Bezos", desc: "Built by Oceanco. World's largest wooden-hulled sailing yacht." },
-      { name: "Al Lusail", length: 123, category: "giga", owner: "Sheikh Tamim bin Hamad Al Thani", bioLink: "https://en.wikipedia.org/wiki/Tamim_bin_Hamad_Al_Thani", desc: "Built by Lürssen. Emir of Qatar." },
-      { name: "Launchpad", length: 118, category: "giga", owner: "Mark Zuckerberg", bioLink: "https://en.wikipedia.org/wiki/Mark_Zuckerberg", desc: "Custom Oceanco build. Founder & CEO of Meta." },
-      { name: "Infinity", length: 117, category: "giga", owner: "Eric Smidt", bioLink: "https://www.superyachtfan.com/yacht/infinity/", desc: "Built by Oceanco. Founder & CEO of Harbor Freight Tools." },
-      { name: "Kaos", length: 110, category: "giga", owner: "Nancy Walton Laurie", bioLink: "https://www.superyachtfan.com/yacht/kaos/", desc: "Built by Oceanco. Heiress to the Walmart fortune." },
-      { name: "Seven Seas", length: 109, category: "giga", owner: "Steven Spielberg", bioLink: "https://en.wikipedia.org/wiki/Steven_Spielberg", desc: "Built by Oceanco. Iconic Academy Award-winning filmmaker." },
-      { name: "IJE", length: 108, category: "giga", owner: "James Packer", bioLink: "https://www.superyachtfan.com/yacht/ije/", desc: "Built by Benetti. Australian investor & businessman." },
-      { name: "Andromeda", length: 107, category: "giga", owner: "Yuri Milner", bioLink: "https://www.superyachtfan.com/yacht/andromeda/", desc: "Built by Kleven. Tech investor & founder of DST Global." },
-      { name: "Luminosity", length: 107, category: "giga", owner: "Kutayba Alghanim", bioLink: "https://www.superyachtfan.com/yacht/luminosity/", desc: "Built by Benetti. Kuwaiti billionaire & industrialist." },
-      { name: "Black Pearl", length: 106, category: "giga", owner: "Oleg Burlakov Estate", bioLink: "https://www.superyachtfan.com/yacht/black-pearl/", desc: "Built by Oceanco. Tri-deck eco-sailing yacht." },
-      { name: "Symphony", length: 101, category: "giga", owner: "Bernard Arnault", bioLink: "https://www.superyachtfan.com/yacht/symphony/", desc: "Built by Feadship. Founder & CEO of LVMH." },
-
-      // 80m–99m Heavyweight Tier
-      { name: "Carinthia VII", length: 97, category: "heavy", owner: "Rubén Cherñajovsky", bioLink: "https://www.superyachtfan.com/yacht/carinthia-vii/", desc: "Iconic Lürssen build. Argentine industrialist & founder of Newsan." },
-      { name: "Vava II", length: 96, category: "heavy", owner: "Ernesto Bertarelli", bioLink: "https://www.superyachtfan.com/yacht/vava-ii/", desc: "Built by Devonport. Swiss biotech billionaire." },
-      { name: "Bliss", length: 95, category: "heavy", owner: "Evan Spiegel", bioLink: "https://www.superyachtfan.com/yacht/bliss/", desc: "Built by Feadship. Co-founder & CEO of Snap Inc." },
-      { name: "Eos", length: 93, category: "heavy", owner: "Barry Diller", bioLink: "https://www.superyachtfan.com/yacht/eos/", desc: "Built by Lürssen. Chairman of IAC & Expedia." },
-      { name: "Aquarius", length: 92, category: "heavy", owner: "Steve Wynn", bioLink: "https://en.wikipedia.org/wiki/Steve_Wynn", desc: "Built by Feadship. American casino developer & art collector." },
-      { name: "Tatoosh", length: 92, category: "heavy", owner: "Paul Allen Estate", bioLink: "https://www.superyachtfan.com/yacht/tatoosh/", desc: "Built by Nobiskrug. Explorer superyacht." },
-      { name: "Tranquility", length: 91, category: "heavy", owner: "Genting Group", bioLink: "https://www.superyachtfan.com/yacht/tranquility/", desc: "Built by Oceanco. Ice-classed luxury superyacht." },
-      { name: "Dreamboat", length: 90, category: "heavy", owner: "Arthur Blank", bioLink: "https://en.wikipedia.org/wiki/Arthur_Blank", desc: "Built by Oceanco. Co-founder of Home Depot & owner of Atlanta Falcons." },
-      { name: "Zen", length: 88, category: "heavy", owner: "Wu Guangming", bioLink: "https://www.superyachtfan.com/yacht/zen/owner/", desc: "Built by Feadship. Chinese healthcare tycoon & founder of Yuwell." },
-      { name: "Maltese Falcon", length: 88, category: "heavy", owner: "Elena Ambrosiadou", bioLink: "https://www.superyachtfan.com/yacht/maltese-falcon/", desc: "Iconic Perini Navi Clipper. CEO of Ikos Asset Management." },
-      { name: "Aquijo", length: 86, category: "heavy", owner: "Jürgen Grossmann", bioLink: "https://www.superyachtfan.com/yacht/aquijo/owner/", desc: "Built by Oceanco & Vitters. German industrialist & founder of GMH Gruppe." },
-      { name: "Pacific", length: 85, category: "heavy", owner: "Leonid Mikhelson", bioLink: "https://www.superyachtfan.com/yacht/pacific/", desc: "Built by Lürssen. CEO of Novatek." },
-      { name: "Alfa Nero", length: 82, category: "heavy", owner: "Alidar Utemuratov", bioLink: "https://www.superyachtfan.com/yacht/alfa-nero/", desc: "Built by Oceanco. Kazakh entrepreneur & investor." },
-      { name: "Sea Pearl (ex-Secret)", length: 82, category: "heavy", owner: "Sri Prakash Lohia", bioLink: "https://www.superyachtfan.com/yacht/sea-pearl-2013/owner/", desc: "Built by Abeking & Rasmussen. Founder & Chairman of Indorama Corp." },
-      { name: "Sarafsa", length: 82, category: "heavy", owner: "Patrick Getreide", bioLink: "https://www.forbes.com/sites/robertanaas/2022/05/13/one-watch-collector-160-rare-watches-patek-rolex-oak-collection-opens-next-week/", desc: "Built by Devonport. French entrepreneur & founder of the OAK Collection." },
-
-      // Under 80m Tier
-      { name: "Tango", length: 78, category: "under80", owner: "Viktor Vekselberg", bioLink: "https://www.superyachtfan.com/yacht/tango/owner/", desc: "Built by Feadship. Russian billionaire & founder of Renova Group." },
-      { name: "Venus", length: 78, category: "under80", owner: "Laurene Powell Jobs", bioLink: "https://www.superyachtfan.com/yacht/venus/", desc: "Built by Feadship. Designed by Philippe Starck." },
-      { name: "Coral Ocean", length: 73, category: "under80", owner: "Ian Malouf", bioLink: "https://www.superyachtfan.com/yacht/coral-ocean/owner/", desc: "Built by Lürssen. Australian founder of Dial-a-Dump & Ahoy Club." },
-      { name: "Dragonfly", length: 73, category: "under80", owner: "Sergey Brin", bioLink: "https://www.superyachtfan.com/yacht/dragonfly/", desc: "Built by SilverYachts. Co-founder of Google." },
-      { name: "Imagine", length: 65, category: "under80", owner: "Serge Godin", bioLink: "https://en.wikipedia.org/wiki/Serge_Godin", desc: "Built by Trinity Yachts. Founder & Executive Chairman of CGI." },
-      { name: "Main", length: 65, category: "under80", owner: "Giorgio Armani", bioLink: "https://en.wikipedia.org/wiki/Giorgio_Armani", desc: "Built by Codecasa. Legendary Italian fashion designer." },
-      { name: "Irimari (Almax)", length: 63, category: "under80", owner: "Alexandr Holdings", bioLink: "https://www.superyachtfan.com/yacht/irimari/", desc: "Built by Sunrise Yachts. Modern transoceanic motor yacht." },
-      { name: "Cyan", length: 49, category: "under80", owner: "Bono & The Edge", bioLink: "https://en.wikipedia.org/wiki/Bono", desc: "Built by Codecasa. U2 lead vocalist & lead guitarist." },
-      { name: "Galatea (Taurica)", length: 40, category: "under80", owner: "Undisclosed Owner", bioLink: "https://www.superyachtfan.com/yacht/taurica/", desc: "Delivered by Heesen Yachts. Private luxury motor yacht." },
-      { name: "Velsheda", length: 39, category: "under80", owner: "Ronald de Waal", bioLink: "https://www.superyachtfan.com/yacht/bystander/owner/", desc: "Historic J-Class sailing yacht. Former Chairman of WE Fashion." },
-      { name: "Great White", length: 24, category: "under80", owner: "Rafael Nadal", bioLink: "https://en.wikipedia.org/wiki/Rafael_Nadal", desc: "Sunreef 80 Power Catamaran. 22-time Grand Slam champion." },
-
-      // Additional Standard Vessels
-      { name: "Aviva", length: 98, category: "heavy", owner: "Joe Lewis", bioLink: "https://www.superyachtfan.com/yacht/aviva/", desc: "Built by Abeking & Rasmussen. Tavistock Group founder." },
-      { name: "Bravo Eugenia", length: 109, category: "giga", owner: "Jerry Jones", bioLink: "https://www.superyachtfan.com/yacht/bravo-eugenia/", desc: "Built by Oceanco. Owner of the Dallas Cowboys." },
-      { name: "Dilbar", length: 156, category: "giga", owner: "Alisher Usmanov", bioLink: "https://www.superyachtfan.com/yacht/dilbar/", desc: "Built by Lürssen. Largest superyacht by gross tonnage." },
-      { name: "Flying Fox", length: 136, category: "giga", owner: "Dmitry Kamenshchik", bioLink: "https://www.superyachtfan.com/yacht/flying-fox/", desc: "Built by Lürssen. Russian airport operator & entrepreneur." },
-      { name: "Kismet", length: 122, category: "giga", owner: "Shahid Khan", bioLink: "https://www.superyachtfan.com/yacht/kismet/", desc: "Built by Lürssen. Owner of Jacksonville Jaguars & Fulham FC." },
-      { name: "Nord", length: 142, category: "giga", owner: "Alexey Mordashov", bioLink: "https://www.superyachtfan.com/yacht/nord/", desc: "Built by Lürssen. Major shareholder in Severstal." },
-      { name: "Octopus", length: 126, category: "giga", owner: "Roger Vance", bioLink: "https://www.superyachtfan.com/yacht/octopus/", desc: "Built by Lürssen. Iconic explorer yacht." },
-      { name: "Opera", length: 146, category: "giga", owner: "Sheikh Abdullah Al Nahyan", bioLink: "https://www.superyachtfan.com/yacht/opera/", desc: "Built by Lürssen. Minister of Foreign Affairs of UAE." },
-      { name: "Pelorus", length: 115, category: "giga", owner: "Samuel Tak Lee", bioLink: "https://www.superyachtfan.com/yacht/pelorus/", desc: "Built by Lürssen. Hong Kong property billionaire." },
-      { name: "Yas", length: 141, category: "giga", owner: "Hamdan bin Zayed Al Nahyan", bioLink: "https://www.superyachtfan.com/yacht/yas/", desc: "Built by ADMShipyards. Converted frigate superyacht." }
-    ];
-
-    let currentFilter = 'all';
-
-    function renderGrid(data) {
-      const grid = document.getElementById("yachtGrid");
-      grid.innerHTML = "";
-      data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "yacht-card";
-        card.innerHTML = `
-          <div>
-            <div class="card-top">
-              <div class="yacht-name">${item.name}</div>
-              ${item.length > 0 ? `<div class="length-badge">${item.length}m</div>` : ''}
+    <header>
+        <div class="header-top">
+            <div class="brand-container">
+                <img src="https://img.icons8.com/ios-filled/100/dfb15b/anchor.png" alt="Anchor Icon" class="header-anchor">
+                <div class="title-group">
+                    <h1>yachtspotter</h1>
+                    <p class="subtitle"><span>a DEEP</span> pocket directory</p>
+                </div>
             </div>
-            <div class="owner-section">
-              <div class="owner-label">OWNER</div>
-              <a href="${item.bioLink}" target="_blank" rel="noopener" class="owner-btn">
-                ${item.owner} ↗
-              </a>
-            </div>
-            <div class="description">${item.desc}</div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
+            <button class="save-phone-btn" onclick="openModal()">Save to Phone 📱</button>
+        </div>
+    </header>
 
-    function setFilter(cat, btn) {
-      currentFilter = cat;
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      filterDirectory();
-    }
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Search yacht or owner..." onkeyup="filterYachts()">
+        <button class="btn active" onclick="filterTier('all', this)">All (50)</button>
+        <button class="btn" onclick="filterTier('giga', this)">100m+ Giga</button>
+        <button class="btn" onclick="filterTier('heavy', this)">80m–99m</button>
+        <button class="btn" onclick="filterTier('classic', this)">Under 80m</button>
+    </div>
 
-    function filterDirectory() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
-      const filtered = fleet.filter(item => {
-        const matchesQuery = item.name.toLowerCase().includes(query) || item.owner.toLowerCase().includes(query);
-        const matchesCat = (currentFilter === 'all') || (item.category === currentFilter);
-        return matchesQuery && matchesCat;
-      });
-      renderGrid(filtered);
-    }
+    <div class="grid" id="yachtGrid"></div>
 
-    // Initial Render
-    renderGrid(fleet);
-  </script>
+    <footer>
+        Tip: Tap 'Save to Phone' above to add yachtspotter directly to your home screen.
+    </footer>
+
+    <!-- Save to Phone Modal -->
+    <div class="modal-overlay" id="phoneModal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Save to Home Screen</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 15px;">
+                Add yachtspotter to your device for quick access with the custom anchor icon:
+            </p>
+            
+            <p style="color: var(--gold); font-weight: 600; margin: 10px 0 5px 0;">For iPhone / iPad (Safari):</p>
+            <ol>
+                <li>Tap the <strong>Share</strong> button in the browser toolbar.</li>
+                <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+                <li>Tap <strong>Add</strong> in the top right corner.</li>
+            </ol>
+
+            <p style="color: var(--gold); font-weight: 600; margin: 15px 0 5px 0;">For iPad / iPhone (Chrome):</p>
+            <ol>
+                <li>Tap the <strong>Share</strong> icon in the top right address bar.</li>
+                <li>Select <strong>"Add to Home Screen"</strong> from the menu options.</li>
+                <li>Confirm to add.</li>
+            </ol>
+
+            <p style="color: var(--gold); font-weight: 600; margin: 15px 0 5px 0;">For Android (Chrome):</p>
+            <ol>
+                <li>Tap the <strong>three vertical dots</strong> menu in the top right.</li>
+                <li>Select <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const fleetData = [
+            { name: "Rising Sun", length: "138m", owner: "David Geffen", tier: "giga", desc: "Built by Lürssen. Entertainment mogul, co-founder of DreamWorks.", wiki: "https://en.wikipedia.org/wiki/David_Geffen" },
+            { name: "Luminance", length: "138m", owner: "Rinat Akhmetov", tier: "giga", desc: "Built by Lürssen (2024). Ukrainian industrialist & investor.", wiki: "https://en.wikipedia.org/wiki/Rinat_Akhmetov" },
+            { name: "Koru", length: "127m", owner: "Jeff Bezos", tier: "giga", desc: "Built by Oceanco. World's largest wooden-hulled sailing yacht.", wiki: "https://en.wikipedia.org/wiki/Jeff_Bezos" },
+            { name: "Al Lusail", length: "123m", owner: "Sheikh Tamim bin Hamad Al Thani", tier: "giga", desc: "Built by Lürssen. Emir of Qatar.", wiki: "https://en.wikipedia.org/wiki/Tamim_bin_Hamad_Al_Thani" },
+            { name: "Launchpad", length: "118m", owner: "Mark Zuckerberg", tier: "giga", desc: "Custom Oceanco build. Founder & CEO of Meta.", wiki: "https://en.wikipedia.org/wiki/Mark_Zuckerberg" },
+            { name: "Infinity", length: "117m", owner: "Eric Smidt", tier: "giga", desc: "Built by Oceanco. Founder & CEO of Harbor Freight Tools.", wiki: "https://en.wikipedia.org/wiki/Eric_Smidt" },
+            { name: "Kaos", length: "110m", owner: "Nancy Walton Laurie", tier: "giga", desc: "Built by Oceanco. Heiress to the Walmart fortune.", wiki: "https://en.wikipedia.org/wiki/Nancy_Walton_Laurie" },
+            { name: "Seven Seas", length: "109m", owner: "Steven Spielberg", tier: "giga", desc: "Built by Oceanco. Iconic Academy Award-winning filmmaker.", wiki: "https://en.wikipedia.org/wiki/Steven_Spielberg" },
+            { name: "Black Pearl", length: "106m", owner: "Estate of Oleg Burlakov", tier: "giga", desc: "Eco-friendly DynaRig sailing yacht.", wiki: "https://en.wikipedia.org/wiki/Oleg_Burlakov" },
+            
+            { name: "Carinthia VII", length: "97m", owner: "Rubén Cherñajovsky", tier: "heavy", desc: "Navy-blue Lürssen classic. Argentine electronics magnate.", wiki: "https://en.wikipedia.org/wiki/Carinthia_VII" },
+            { name: "Aquarius", length: "92m", owner: "Steve Wynn", tier: "heavy", desc: "Built by Feadship. Luxury resort & casino developer.", wiki: "https://en.wikipedia.org/wiki/Steve_Wynn" },
+            { name: "Dreamboat", length: "90m", owner: "Arthur Blank", tier: "heavy", desc: "Home Depot co-founder & Atlanta Falcons owner.", wiki: "https://en.wikipedia.org/wiki/Arthur_Blank" },
+            { name: "Zen", length: "88m", owner: "Wu Guangming", tier: "heavy", desc: "Built by Feadship. Chinese medical technology billionaire.", wiki: "https://en.wikipedia.org/wiki/Yuyue_Medical" },
+            { name: "Fountainhead", length: "88m", owner: "Eddie Lampert", tier: "heavy", desc: "Built by Feadship. Founder of ESL Investments.", wiki: "https://en.wikipedia.org/wiki/Eddie_Lampert" },
+            { name: "Maltese Falcon", length: "88m", owner: "Luca Rovati", tier: "heavy", desc: "Iconic square-rigged sailing superyacht. Italian pharmaceutical investor.", wiki: "https://www.superyachtfan.com/yacht/maltese-falcon/" },
+            { name: "Avantage", length: "87m", owner: "Bulat Utemuratov", tier: "heavy", desc: "Built by Lürssen. Kazakhstani diplomat & investor.", wiki: "https://en.wikipedia.org/wiki/Bulat_Utemuratov" },
+            { name: "Aquijo", length: "86m", owner: "Gerhard Andlinger Estate", tier: "heavy", desc: "Largest modern ketch-rigged sailing yacht.", wiki: "https://en.wikipedia.org/wiki/Aquijo" },
+            { name: "Solandge", length: "85m", owner: "Prince Muqrin bin Abdulaziz", tier: "heavy", desc: "Built by Lürssen. Former Crown Prince of Saudi Arabia.", wiki: "https://en.wikipedia.org/wiki/Muqrin_bin_Abdulaziz" },
+            { name: "Pacific", length: "85m", owner: "Leonid Mikhelson", tier: "heavy", desc: "Built by Lürssen. CEO of Novatek.", wiki: "https://en.wikipedia.org/wiki/Leonid_Mikhelson" },
+            { name: "Alfa Nero", length: "82m", owner: "Eric Schmidt", tier: "heavy", desc: "Famous glass-aft infinity pool design by Oceanco.", wiki: "https://en.wikipedia.org/wiki/Eric_Schmidt" },
+            { name: "Secret", length: "82m", owner: "Nancy Walton Laurie Family Trust", tier: "heavy", desc: "Built by Abeking & Rasmussen.", wiki: "https://en.wikipedia.org/wiki/Nancy_Walton_Laurie" },
+
+            { name: "Eminence", length: "79m", owner: "Haim Saban", tier: "classic", desc: "Built by Abeking & Rasmussen. Media & entertainment mogul.", wiki: "https://en.wikipedia.org/wiki/Haim_Saban" },
+            { name: "Cloudbreak", length: "75m", owner: "Alexander Svetakov", tier: "classic", desc: "High-spec Abeking expedition yacht.", wiki: "https://en.wikipedia.org/wiki/Alexander_Svetakov" },
+            { name: "Ilona", length: "74m", owner: "Frank Lowy", tier: "classic", desc: "Built by Amels. Founder of Westfield Group.", wiki: "https://en.wikipedia.org/wiki/Frank_Lowy" },
+            { name: "Coral Ocean", length: "72.5m", owner: "Ian Malouf", tier: "classic", desc: "Classic Jon Bannenberg design build by Lürssen.", wiki: "https://en.wikipedia.org/wiki/Coral_Ocean_(yacht)" },
+            { name: "Juice", length: "71m", owner: "Laurence Graff, OBE", tier: "classic", desc: "Built by Feadship. Founder of Graff Diamonds.", wiki: "https://en.wikipedia.org/wiki/Laurence_Graff" },
+            { name: "Skat", length: "71m", owner: "Kjell Inge Røkke", tier: "classic", desc: "Iconic military-style grey Lürssen design.", wiki: "https://en.wikipedia.org/wiki/Kjell_Inge_R%C3%B8kke" },
+            { name: "Galactica Super Nova", length: "70m", owner: "Vagit Alekperov", tier: "classic", desc: "Built by Heesen. Former President of Lukoil.", wiki: "https://en.wikipedia.org/wiki/Vagit_Alekperov" },
+            { name: "Hetairos", length: "66m", owner: "Otto Happel", tier: "classic", desc: "Carbon-composite super sailing yacht.", wiki: "https://en.wikipedia.org/wiki/Otto_Happel" },
+            { name: "Main", length: "65m", owner: "Giorgio Armani", tier: "classic", desc: "Built by Codecasa. Iconic dark-green hull.", wiki: "https://en.wikipedia.org/wiki/Giorgio_Armani" },
+            { name: "Shemara", length: "65m", owner: "Sir Charles Dunstone", tier: "classic", desc: "Restored 1938 classic. Founder of Carphone Warehouse.", wiki: "https://en.wikipedia.org/wiki/Charles_Dunstone" },
+            { name: "Imagine", length: "65m", owner: "Mikael Krafft", tier: "classic", desc: "Built by Amels. Founder of Star Clippers.", wiki: "https://en.wikipedia.org/wiki/Amels_Voices" },
+            { name: "Baton Rouge", length: "62m", owner: "Martin Bouygues", tier: "classic", desc: "Built by Icon Yachts. French industrial tycoon.", wiki: "https://en.wikipedia.org/wiki/Martin_Bouygues" },
+            { name: "St. David", length: "60m", owner: "David Coulthard", tier: "classic", desc: "Benetti custom build. Formula 1 racing legend.", wiki: "https://en.wikipedia.org/wiki/David_Coulthard" },
+            { name: "Excellence VI", length: "60m", owner: "Herb Chambers", tier: "classic", desc: "Built by Abeking & Rasmussen. Automotive billionaire.", wiki: "https://en.wikipedia.org/wiki/Herb_Chambers" },
+            { name: "Galileo G", length: "55m", owner: "Forrest Lucas", tier: "classic", desc: "Perini Navi ice-class explorer yacht. Founder of Lucas Oil.", wiki: "https://en.wikipedia.org/wiki/Forrest_Lucas" },
+            { name: "Cyan", length: "49m", owner: "Bono & The Edge", tier: "classic", desc: "Codecasa motor yacht owned by U2 members.", wiki: "https://en.wikipedia.org/wiki/Bono" },
+            { name: "Svea", length: "43m", owner: "Torbjörn Törnqvist", tier: "classic", desc: "J-Class racing yacht. CEO of Gunvor Group.", wiki: "https://en.wikipedia.org/wiki/Torbj%C3%B6rn_T%C3%B6rnqvist" },
+            { name: "Velsheda", length: "39m", owner: "Ronald de Waal", tier: "classic", desc: "Historical 1933 J-Class sailing yacht. WE Fashion owner.", wiki: "https://en.wikipedia.org/wiki/Velsheda" },
+            { name: "Galateia", length: "30m", owner: "David Leuschen", tier: "classic", desc: "Wallycento super-maxi racing yacht.", wiki: "https://en.wikipedia.org/wiki/Wally_Yachts" },
+            { name: "Great White", length: "24m", owner: "Rafael Nadal", tier: "classic", desc: "Custom Sunreef 80 Power catamaran based in Porto Cristo.", wiki: "https://en.wikipedia.org/wiki/Rafael_Nadal" },
+            
+            { name: "Abeona", length: "75m", owner: "Jeff Bezos", tier: "classic", desc: "Support vessel for Koru. Built by Damen Yachting.", wiki: "https://en.wikipedia.org/wiki/Jeff_Bezos" },
+            { name: "Intuition II", length: "56m", owner: "Patrick Getreide", tier: "classic", desc: "Custom Amels build. Famed vintage watch collector / OAK Collection curator.", wiki: "https://monochrome-watches.com/patrick-getreide-oak-collection-interview/" },
+            { name: "Asya", length: "47m", owner: "Kabir Mulchandani", tier: "classic", desc: "Billionaire CEO of FIVE Holdings & Pacha Group.", wiki: "https://en.wikipedia.org/wiki/Kabir_Mulchandani" },
+            { name: "Lady Moura", length: "105m", owner: "Ricardo Salinas Pliego", tier: "giga", desc: "Mexican billionaire investor & TV Azteca owner.", wiki: "https://en.wikipedia.org/wiki/Ricardo_Salinas_Pliego" },
+            { name: "Sailing Yacht A", length: "143m", owner: "Andrey Melnichenko", tier: "giga", desc: "World's largest sail-assisted motor yacht.", wiki: "https://en.wikipedia.org/wiki/Andrey_Melnichenko_(industrialist)" },
+            { name: "Irimari", length: "63m", owner: "Herbert Baum", tier: "classic", desc: "Sunrise Yachts majority shareholder & industrialist.", wiki: "https://en.wikipedia.org/wiki/Superyacht" },
+            { name: "Architect", length: "52m", owner: "Piero Lissoni", tier: "classic", desc: "Renowned Italian architect & designer.", wiki: "https://en.wikipedia.org/wiki/Piero_Lissoni" },
+            { name: "Elysian", length: "66m", owner: "John Henry", tier: "classic", desc: "Boston Red Sox & Liverpool FC principal owner.", wiki: "https://en.wikipedia.org/wiki/John_W._Henry" },
+            { name: "Tango", length: "77m", owner: "Viktor Vekselberg", tier: "classic", desc: "Feadship custom luxury yacht.", wiki: "https://en.wikipedia.org/wiki/Viktor_Vekselberg" }
+        ];
+
+        function renderCards(data) {
+            const container = document.getElementById('yachtGrid');
+            container.innerHTML = '';
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <h3 class="yacht-name">${item.name}</h3>
+                            <span class="yacht-length">${item.length}</span>
+                        </div>
+                        <div class="owner-box">
+                            <div class="owner-label">Owner</div>
+                            <a href="${item.wiki}" target="_blank" rel="noopener" class="owner-link-btn">
+                                ${item.owner} ↗
+                            </a>
+                        </div>
+                        <div class="details">${item.desc}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterTier(tier, btn) {
+            document.querySelectorAll('.controls .btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            if(tier === 'all') {
+                renderCards(fleetData);
+            } else {
+                const filtered = fleetData.filter(item => item.tier === tier);
+                renderCards(filtered);
+            }
+        }
+
+        function filterYachts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = fleetData.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.owner.toLowerCase().includes(query) ||
+                item.desc.toLowerCase().includes(query)
+            );
+            renderCards(filtered);
+        }
+
+        function openModal() {
+            document.getElementById('phoneModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('phoneModal').style.display = 'none';
+        }
+        function closeModalOutside(event) {
+            if (event.target === document.getElementById('phoneModal')) {
+                closeModal();
+            }
+        }
+
+        // Initial Render
+        renderCards(fleetData);
+    </script>
 </body>
 </html>
