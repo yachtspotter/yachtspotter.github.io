@@ -45,12 +45,54 @@
     .brand-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .anchor-icon {
-      color: #f59e0b;
-      font-size: 2rem;
+    .logo-container {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-text);
+      cursor: pointer;
+    }
+
+    .logo-container svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .logo-picker {
+      display: flex;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 4px;
+      border-radius: 6px;
+      margin-left: 8px;
+    }
+
+    .logo-option {
+      width: 24px;
+      height: 24px;
+      padding: 3px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .logo-option svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .logo-option.active {
+      color: var(--gold-text);
+      background: rgba(217, 119, 6, 0.15);
     }
 
     .title-text h1 {
@@ -71,9 +113,10 @@
       margin-top: 4px;
     }
 
-    .subtitle b {
-      color: #ef4444;
+    .subtitle span {
+      color: #ffffff;
       font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
     .save-btn {
@@ -222,10 +265,28 @@
 
   <div class="header">
     <div class="brand-title">
-      <div class="anchor-icon">⚓</div>
+      <!-- Active SVG Display -->
+      <div class="logo-container" id="mainLogo">
+        <!-- Default: Anchor -->
+        <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+      </div>
+
+      <!-- Icon Switcher Controls -->
+      <div class="logo-picker">
+        <div class="logo-option active" title="Anchor" onclick="switchLogo('anchor', this)">
+          <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+        </div>
+        <div class="logo-option" title="Binoculars" onclick="switchLogo('binoculars', this)">
+          <svg viewBox="0 0 24 24"><path d="M5 3h4a2 2 0 0 1 2 2v3H9V5H5v14h4v-3h2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm10 0h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h2v3h4V5h-4v3h-2V5a2 2 0 0 1 2-2zM9 10h6v2H9v-2z"/></svg>
+        </div>
+        <div class="logo-option" title="Lighthouse" onclick="switchLogo('lighthouse', this)">
+          <svg viewBox="0 0 24 24"><path d="M11 2h2l1 3h-4l1-3zm-2 4h6l.8 4H8.2L9 6zm-1.5 5h9l1 11H6.5l1-11zM12 13a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+        </div>
+      </div>
+
       <div class="title-text">
         <h1>yachtspotter</h1>
-        <div class="subtitle">a <b>DEEP</b> pocket directory</div>
+        <div class="subtitle">a <span>DEEP</span> pocket directory</div>
       </div>
     </div>
     <button class="save-btn" onclick="alert('Tap your browser share button and select Add to Home Screen')">Save to Phone 📱</button>
@@ -244,6 +305,18 @@
   <div class="grid" id="yachtGrid"></div>
 
   <script>
+    const svgIcons = {
+      anchor: `<svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V11H8c-2.8 0-5 2.2-5 5v2h2v-2c0-1.7 1.3-3 3-3h3v5.2c-1.2.4-2 1.5-2 2.8a3 3 0 0 0 6 0c0-1.3-.8-2.4-2-2.8V13h3c1.7 0 3 1.3 3 3v2h2v-2c0-2.8-2.2-5-5-5h-3V7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>`,
+      binoculars: `<svg viewBox="0 0 24 24"><path d="M5 3h4a2 2 0 0 1 2 2v3H9V5H5v14h4v-3h2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm10 0h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h2v3h4V5h-4v3h-2V5a2 2 0 0 1 2-2zM9 10h6v2H9v-2z"/></svg>`,
+      lighthouse: `<svg viewBox="0 0 24 24"><path d="M11 2h2l1 3h-4l1-3zm-2 4h6l.8 4H8.2L9 6zm-1.5 5h9l1 11H6.5l1-11zM12 13a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>`
+    };
+
+    function switchLogo(type, el) {
+      document.getElementById('mainLogo').innerHTML = svgIcons[type];
+      document.querySelectorAll('.logo-option').forEach(opt => opt.classList.remove('active'));
+      el.classList.add('active');
+    }
+
     const fleet = [
       // 100m+ Giga Tier
       { name: "Rising Sun", length: 138, category: "giga", owner: "David Geffen", bioLink: "https://www.superyachtfan.com/yacht/rising-sun/location/", desc: "Built by Lürssen. Entertainment mogul, co-founder of DreamWorks." },
