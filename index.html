@@ -5,294 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>YachtSpotter</title>
     
-    <!-- PWA & Mobile Web App Capabilities -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="YachtSpotter">
     <meta name="theme-color" content="#0b0f14">
 
-    <!-- Embedded High-Res Gold Superyacht Home Screen Icon -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%230b0f14'/><rect x='16' y='16' width='480' height='480' rx='96' fill='none' stroke='%23d4af37' stroke-width='8' opacity='0.4'/><path d='M60 360 L140 360 L200 320 L380 320 L420 280 L220 280 L200 240 L300 240 L280 200 L180 200 L160 160 L130 160 L140 200 L120 280 L60 360 Z' fill='%23d4af37'/><path d='M40 380 Q256 410 472 380' stroke='%23d4af37' stroke-width='14' stroke-linecap='round' fill='none'/></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%230b0f14'/><path d='M60 360 L140 360 L200 320 L380 320 L420 280 L220 280 L200 240 L300 240 L280 200 L180 200 L160 160 L130 160 L140 200 L120 280 L60 360 Z' fill='%23d4af37'/><path d='M40 380 Q256 410 472 380' stroke='%23d4af37' stroke-width='14' stroke-linecap='round' fill='none'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230b0f14'/><rect x='16' y='16' width='480' height='480' rx='96' fill='none' stroke='%23d4af37' stroke-width='8' opacity='0.4'/><path d='M60 360 L140 360 L200 320 L380 320 L420 280 L220 280 L200 240 L300 240 L280 200 L180 200 L160 160 L130 160 L140 200 L120 280 L60 360 Z' fill='%23d4af37'/><path d='M40 380 Q256 410 472 380' stroke='%23d4af37' stroke-width='14' stroke-linecap='round' fill='none'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230b0f14'/><path d='M60 360 L140 360 L200 320 L380 320 L420 280 L220 280 L200 240 L300 240 L280 200 L180 200 L160 160 L130 160 L140 200 L120 280 L60 360 Z' fill='%23d4af37'/><path d='M40 380 Q256 410 472 380' stroke='%23d4af37' stroke-width='14' stroke-linecap='round' fill='none'/></svg>">
 
     <style>
-        :root {
-            --bg-main: #0b0f14;
-            --bg-card: #161b22;
-            --border: #30363d;
-            --accent-gold: #d4af37;
-            --accent-gold-hover: #f3e5ab;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
-            --danger: #f85149;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            padding-bottom: 75px;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            background: rgba(11, 15, 20, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 16px;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .search-container {
-            padding: 12px 16px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent-gold);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            padding: 0 16px 16px 16px;
-        }
-
-        @media (min-width: 640px) {
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            }
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .yacht-rank {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .yacht-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-top: 2px;
-        }
-
-        .yacht-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .details-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 0;
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .detail-item.full-width {
-            grid-column: span 2;
-        }
-
-        .detail-label {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .detail-value {
-            color: var(--text-main);
-            font-weight: 500;
-            margin-top: 2px;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: transparent;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-gold);
-            color: #000;
-            border: none;
-        }
-
-        .btn-primary:active {
-            background-color: var(--accent-gold-hover);
-        }
-
-        .btn-bookmark.active {
-            color: var(--accent-gold);
-            border-color: var(--accent-gold);
-            background: rgba(212, 175, 55, 0.1);
-        }
-
-        nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: var(--bg-card);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
-        }
-
-        .nav-item {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .nav-item.active {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 200;
-            flex-direction: column;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .video-container {
-            position: relative;
-            flex: 1;
-            overflow: hidden;
-            background: #000;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .crosshair {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
-            border: 2px dashed var(--accent-gold);
-            border-radius: 16px;
-            pointer-events: none;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            border: 1px solid var(--border);
-            width: 44px;
-            height: 44px;
-            border-radius: 22px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 210;
-        }
+        :root { --bg-main: #0b0f14; --bg-card: #161b22; --border: #30363d; --accent-gold: #d4af37; --accent-gold-hover: #f3e5ab; --text-main: #f0f6fc; --text-muted: #8b949e; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-main); color: var(--text-main); padding-bottom: 75px; }
+        header { position: sticky; top: 0; background: rgba(11, 15, 20, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.2rem; letter-spacing: 2px; color: var(--accent-gold); text-transform: uppercase; font-weight: 700; }
+        .search-container { padding: 12px 16px; }
+        .search-input { width: 100%; padding: 12px 16px; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 0.95rem; outline: none; }
+        .search-input:focus { border-color: var(--accent-gold); }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 0 16px 16px 16px; }
+        @media (min-width: 640px) { .grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); } }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .yacht-rank { font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .yacht-name { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 2px; }
+        .yacht-meta { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+        .badge { font-size: 0.75rem; padding: 3px 8px; background: rgba(212, 175, 55, 0.15); color: var(--accent-gold); border: 1px solid var(--accent-gold); border-radius: 4px; font-weight: 600; }
+        .details-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; }
+        .detail-item { display: flex; flex-direction: column; }
+        .detail-item.full-width { grid-column: span 2; }
+        .detail-label { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .detail-value { color: var(--text-main); font-weight: 500; margin-top: 2px; }
+        .owner-link { color: var(--accent-gold); text-decoration: none; border-bottom: 1px dotted var(--accent-gold); }
+        .owner-link:hover { color: var(--accent-gold-hover); border-bottom-style: solid; }
+        .card-actions { display: flex; gap: 8px; }
+        .btn { flex: 1; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background-color: transparent; color: var(--text-main); font-weight: 600; font-size: 0.85rem; cursor: pointer; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-primary { background-color: var(--accent-gold); color: #000; border: none; }
+        .btn-bookmark.active { color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(212, 175, 55, 0.1); }
+        nav { position: fixed; bottom: 0; width: 100%; background-color: var(--bg-card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
+        .nav-item { color: var(--text-muted); font-size: 0.8rem; display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; }
+        .nav-item.active { color: var(--accent-gold); font-weight: 600; }
+        .modal { display: none; position: fixed; inset: 0; background: #000; z-index: 200; flex-direction: column; }
+        .modal.active { display: flex; }
+        .video-container { position: relative; flex: 1; overflow: hidden; background: #000; }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 220px; height: 220px; border: 2px dashed var(--accent-gold); border-radius: 16px; pointer-events: none; }
+        .close-modal { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); color: #fff; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 22px; font-size: 1.2rem; cursor: pointer; z-index: 210; }
     </style>
 </head>
 <body>
@@ -303,26 +60,17 @@
     </header>
 
     <div class="search-container">
-        <input type="text" id="search" class="search-input" placeholder="Search by yacht, owner, builder, flag, or MMSI..." oninput="filterYachts()">
+        <input type="text" id="search" class="search-input" placeholder="Search yacht, owner, builder, flag, MMSI..." oninput="filterYachts()">
     </div>
 
     <main class="grid" id="yacht-grid"></main>
 
     <nav>
-        <button class="nav-item active" onclick="switchTab('all', this)">
-            <span>Fleet Index</span>
-        </button>
-
-        <button class="nav-item" onclick="openCamera()">
-            <span>Visual Scanner</span>
-        </button>
-
-        <button class="nav-item" onclick="switchTab('saved', this)">
-            <span>Saved (<span id="saved-count">0</span>)</span>
-        </button>
+        <button class="nav-item active" onclick="switchTab('all', this)"><span>Fleet Index</span></button>
+        <button class="nav-item" onclick="openCamera()"><span>Visual Scanner</span></button>
+        <button class="nav-item" onclick="switchTab('saved', this)"><span>Saved (<span id="saved-count">0</span>)</span></button>
     </nav>
 
-    <!-- Camera Modal Overlay -->
     <div id="camera-modal" class="modal">
         <button class="close-modal" onclick="closeCamera()">✕</button>
         <div class="video-container">
@@ -333,218 +81,63 @@
 
     <script>
         const yachts = [
-            { rank: 1, id: "1", name: "Azzam", length: "180.6m", builder: "Lürssen", year: 2013, mmsi: "470314000", imo: "9693367", flag: "UAE", owner: "Sheikh Mohamed bin Zayed Al Nahyan" },
-            { rank: 2, id: "2", name: "Fulk Al Salamah", length: "164.0m", builder: "Mariotti", year: 2016, mmsi: "461002000", imo: "9714460", flag: "Oman", owner: "Royal Flight of Oman" },
-            { rank: 3, id: "3", name: "Eclipse", length: "162.5m", builder: "Blohm+Voss", year: 2010, mmsi: "319022900", imo: "1009619", flag: "Bermuda", owner: "Roman Abramovich" },
-            { rank: 4, id: "4", name: "Dubai", length: "162.0m", builder: "Platinum Yachts", year: 2006, mmsi: "470119000", imo: "1006879", flag: "UAE", owner: "Sheikh Mohammed bin Rashid Al Maktoum" },
-            { rank: 5, id: "5", name: "Blue", length: "160.0m", builder: "Lürssen", year: 2022, mmsi: "319228300", imo: "9862231", flag: "Cayman Islands", owner: "Sheikh Mansour bin Zayed Al Nahyan" },
-            { rank: 6, id: "6", name: "Dilbar", length: "156.0m", builder: "Lürssen", year: 2016, mmsi: "319097100", imo: "9783813", flag: "Cayman Islands", owner: "Alisher Usmanov" },
-            { rank: 7, id: "7", name: "Al Said", length: "155.0m", builder: "Lürssen", year: 2008, mmsi: "461000018", imo: "9442100", flag: "Oman", owner: "Sultanate of Oman" },
-            { rank: 8, id: "8", name: "A+", length: "147.2m", builder: "Lürssen", year: 2012, mmsi: "319041200", imo: "1011501", flag: "Cayman Islands", owner: "Sheikh Mansour bin Zayed Al Nahyan" },
-            { rank: 9, id: "9", name: "Prince Abdulaziz", length: "147.0m", builder: "Helsingør Værft", year: 1984, mmsi: "403001000", imo: "1003308", flag: "Saudi Arabia", owner: "Saudi Royal Family" },
-            { rank: 10, id: "10", name: "Opera", length: "146.3m", builder: "Lürssen", year: 2023, mmsi: "319241400", imo: "9862243", flag: "Cayman Islands", owner: "Sheikh Abdullah bin Zayed Al Nahyan" },
-            { rank: 11, id: "11", name: "El Mahrousa", length: "145.7m", builder: "Samuda Brothers", year: 1865, mmsi: "622111110", imo: "1001879", flag: "Egypt", owner: "Egyptian Navy / State" },
-            { rank: 12, id: "12", name: "Sailing Yacht A", length: "142.8m", builder: "Nobiskrug", year: 2017, mmsi: "319111000", imo: "1012141", flag: "Isle of Man", owner: "Andrey Melnichenko" },
-            { rank: 13, id: "13", name: "Dragonfly (Project Lürssen)", length: "142.0m", builder: "Lürssen", year: 2024, mmsi: "319262100", imo: "9862267", flag: "Cayman Islands", owner: "Sergey Brin" },
-            { rank: 14, id: "14", name: "Nord", length: "142.0m", builder: "Lürssen", year: 2021, mmsi: "273243710", imo: "9853785", flag: "Russia", owner: "Alexey Mordashov" },
-            { rank: 15, id: "15", name: "Yas", length: "141.0m", builder: "ADM Shipyards", year: 2015, mmsi: "470984000", imo: "8835140", flag: "UAE", owner: "Sheikh Hamdan bin Zayed Al Nahyan" },
-            { rank: 16, id: "16", name: "Ocean Victory", length: "140.0m", builder: "Fincantieri", year: 2014, mmsi: "319055400", imo: "1011850", flag: "Cayman Islands", owner: "Viktor Rashnikov" },
-            { rank: 17, id: "17", name: "Scheherazade", length: "140.0m", builder: "Lürssen", year: 2020, mmsi: "319179200", imo: "9809980", flag: "Cayman Islands", owner: "Eduard Khudainatov (Disputed)" },
-            { rank: 18, id: "18", name: "Solaris", length: "139.7m", builder: "Lloyd Werft", year: 2021, mmsi: "273246320", imo: "9818826", flag: "Russia", owner: "Roman Abramovich" },
-            { rank: 19, id: "19", name: "Al Salamah", length: "139.3m", builder: "Lürssen", year: 1999, mmsi: "403000030", imo: "1006427", flag: "Saudi Arabia", owner: "Crown Prince Salman bin Abdulaziz" },
-            { rank: 20, id: "20", name: "Luminance", length: "138.8m", builder: "Lürssen", year: 2024, mmsi: "319262100", imo: "9862267", flag: "Cayman Islands", owner: "Rinat Akhmetov" },
-            { rank: 21, id: "21", name: "Rising Sun", length: "138.6m", builder: "Lürssen", year: 2004, mmsi: "319011100", imo: "8982307", flag: "Cayman Islands", owner: "David Geffen" },
-            { rank: 22, id: "22", name: "Flying Fox", length: "136.0m", builder: "Lürssen", year: 2019, mmsi: "319153800", imo: "9829394", flag: "Cayman Islands", owner: "Dmitry Kamenshchik" },
-            { rank: 23, id: "23", name: "Hadar (ex-Radiant)", length: "136.0m", builder: "Lürssen", year: 2009, mmsi: "319014800", imo: "1010016", flag: "Cayman Islands", owner: "Abdulla Al Futtaim" },
-            { rank: 24, id: "24", name: "Savarona", length: "135.9m", builder: "Blohm+Voss", year: 1931, mmsi: "271000213", imo: "5314769", flag: "Turkey", owner: "Republic of Turkey State" },
-            { rank: 25, id: "25", name: "Crescent", length: "135.5m", builder: "Lürssen", year: 2018, mmsi: "319133800", imo: "9785108", flag: "Cayman Islands", owner: "Igor Sechin" },
-            { rank: 26, id: "26", name: "Serene", length: "133.9m", builder: "Fincantieri", year: 2011, mmsi: "319021900", imo: "1010092", flag: "Cayman Islands", owner: "Mohammed bin Salman" },
-            { rank: 27, id: "27", name: "Al Mirqab", length: "133.0m", builder: "Kusch Yachts", year: 2008, mmsi: "319002200", imo: "1009221", flag: "Cayman Islands", owner: "Hamad bin Jassim bin Jaber Al Thani" },
-            { rank: 28, id: "28", name: "Koru", length: "127.0m", builder: "Oceanco", year: 2023, mmsi: "319234800", imo: "9925289", flag: "Cayman Islands", owner: "Jeff Bezos" },
-            { rank: 29, id: "29", name: "Octopus", length: "126.2m", builder: "Lürssen", year: 2003, mmsi: "319011700", imo: "1007269", flag: "Cayman Islands", owner: "Roger Vance" },
-            { rank: 30, id: "30", name: "Maryah", length: "125.0m", builder: "Elefsis Shipyards", year: 2014, mmsi: "319066400", imo: "9044619", flag: "Cayman Islands", owner: "Sheikh Tahnoun bin Zayed Al Nahyan" },
-            { rank: 31, id: "31", name: "Katara", length: "124.4m", builder: "Lürssen", year: 2010, mmsi: "319020400", imo: "1010133", flag: "Cayman Islands", owner: "Sheikh Tamim bin Hamad Al Thani" },
-            { rank: 32, id: "32", name: "Golden Odyssey", length: "123.2m", builder: "Lürssen", year: 2015, mmsi: "319082300", imo: "9648783", flag: "Bermuda", owner: "Guangzhou R&F Properties (Auctioned)" },
-            { rank: 33, id: "33", name: "Al Lusail", length: "123.0m", builder: "Lürssen", year: 2017, mmsi: "319118300", imo: "9771107", flag: "Cayman Islands", owner: "Sheikh Tamim bin Hamad Al Thani" },
-            { rank: 34, id: "34", name: "Kismet", length: "122.0m", builder: "Lürssen", year: 2024, mmsi: "319262900", imo: "9862229", flag: "Cayman Islands", owner: "Shahid Khan" },
-            { rank: 35, id: "35", name: "MYZAN", length: "122.0m", builder: "Lürssen", year: 2024, mmsi: "319273100", imo: "9862255", flag: "Cayman Islands", owner: "Private Royal Fleet" },
-            { rank: 36, id: "36", name: "Alexander", length: "122.0m", builder: "Flender Werke", year: 1965, mmsi: "240046000", imo: "6511116", flag: "Greece", owner: "Latsis Family" },
-            { rank: 37, id: "37", name: "A", length: "119.0m", builder: "Blohm+Voss", year: 2008, mmsi: "319001100", imo: "1009340", flag: "Cayman Islands", owner: "Andrey Melnichenko" },
-            { rank: 38, id: "38", name: "Launchpad", length: "118.9m", builder: "Feadship", year: 2024, mmsi: "319268800", imo: "9860362", flag: "Cayman Islands", owner: "Mark Zuckerberg" },
-            { rank: 39, id: "39", name: "Breakthrough", length: "118.8m", builder: "Feadship", year: 2025, mmsi: "319270000", imo: "9860374", flag: "Cayman Islands", owner: "Private Syndicate" },
-            { rank: 40, id: "40", name: "Liva O", length: "118.2m", builder: "Abeking & Rasmussen", year: 2023, mmsi: "319245800", imo: "9882956", flag: "Cayman Islands", owner: "Joseph Lau" },
-            { rank: 41, id: "41", name: "Infinity", length: "117.0m", builder: "Oceanco", year: 2022, mmsi: "319225700", imo: "9783069", flag: "Cayman Islands", owner: "Eric Smidt" },
-            { rank: 42, id: "42", name: "Turama", length: "116.4m", builder: "Rauma Shipyard", year: 1990, mmsi: "240212000", imo: "8907212", flag: "Greece", owner: "Latsis Family" },
-            { rank: 43, id: "43", name: "Multiverse (ex-U116)", length: "116.0m", builder: "Kleven", year: 2018, mmsi: "319131200", imo: "1012907", flag: "Cayman Islands", owner: "Yuri Milner" },
-            { rank: 44, id: "44", name: "Ahpo", length: "115.1m", builder: "Lürssen", year: 2021, mmsi: "319223100", imo: "9855288", flag: "Cayman Islands", owner: "Patrick Dovigi" },
-            { rank: 45, id: "45", name: "Pelorus", length: "115.0m", builder: "Lürssen", year: 2003, mmsi: "319028800", imo: "1007295", flag: "Cayman Islands", owner: "Samuel Tak Lee" },
-            { rank: 46, id: "46", name: "Luna", length: "115.0m", builder: "Lloyd Werft", year: 2010, mmsi: "538007212", imo: "1010224", flag: "Marshall Islands", owner: "Farkhad Akhmedov" },
-            { rank: 47, id: "47", name: "Atlantis II", length: "115.8m", builder: "Hellenic Shipyards", year: 1981, mmsi: "309252000", imo: "1001415", flag: "Bahamas", owner: "Niarchos Family" },
-            { rank: 48, id: "48", name: "Grand Bleu", length: "113.0m", builder: "Bremer Vulkan", year: 2000, mmsi: "319023100", imo: "1006829", flag: "Bermuda", owner: "Eugene Shvidler" },
-            { rank: 49, id: "49", name: "Renaissance", length: "112.0m", builder: "Freire Shipyard", year: 2023, mmsi: "319246100", imo: "9863417", flag: "Cayman Islands", owner: "A. Gary Klesch" },
-            { rank: 50, id: "50", name: "Al Raya", length: "110.0m", builder: "Lürssen", year: 2008, mmsi: "403000010", imo: "1009180", flag: "Saudi Arabia", owner: "Royal Family of Saudi Arabia" },
-            { rank: 51, id: "51", name: "Anna", length: "110.0m", builder: "Feadship", year: 2018, mmsi: "319131600", imo: "1012971", flag: "Cayman Islands", owner: "Dmitry Rybolovlev" },
-            { rank: 52, id: "52", name: "Kaos", length: "110.0m", builder: "Oceanco", year: 2017, mmsi: "319113800", imo: "1012610", flag: "Cayman Islands", owner: "Nancy Walton Laurie" },
-            { rank: 53, id: "53", name: "Bravo Eugenia", length: "109.0m", builder: "Oceanco", year: 2018, mmsi: "319154300", imo: "1012983", flag: "Cayman Islands", owner: "Jerry Jones" },
-            { rank: 54, id: "54", name: "Seven Seas", length: "109.0m", builder: "Oceanco", year: 2022, mmsi: "319230500", imo: "9882932", flag: "Cayman Islands", owner: "Steven Spielberg" },
-            { rank: 55, id: "55", name: "Shackleton", length: "109.0m", builder: "Lürssen", year: 2024, mmsi: "319271100", imo: "9862279", flag: "Cayman Islands", owner: "Private Explorer Syndicate" },
-            { rank: 56, id: "56", name: "IJE", length: "108.0m", builder: "Benetti", year: 2019, mmsi: "538008272", imo: "1013000", flag: "Marshall Islands", owner: "James Packer" },
-            { rank: 57, id: "57", name: "Andromeda", length: "107.0m", builder: "Kleven", year: 2015, mmsi: "319085800", imo: "9746023", flag: "Cayman Islands", owner: "Graeme Hart" },
-            { rank: 58, id: "58", name: "Luminosity", length: "107.6m", builder: "Benetti", year: 2020, mmsi: "319149700", imo: "9816153", flag: "Cayman Islands", owner: "Kutayba Alghanim" },
-            { rank: 59, id: "59", name: "Black Pearl", length: "106.7m", builder: "Oceanco", year: 2018, mmsi: "319129900", imo: "1012490", flag: "Cayman Islands", owner: "Oleg Burlakov Estate" },
-            { rank: 60, id: "60", name: "Amadea", length: "106.1m", builder: "Lürssen", year: 2017, mmsi: "319111800", imo: "1012531", flag: "Cayman Islands", owner: "Suleiman Kerimov (U.S. Seized)" },
-            { rank: 61, id: "61", name: "Dream", length: "106.0m", builder: "Halic Shipyard", year: 2018, mmsi: "256111000", imo: "9141871", flag: "Malta", owner: "George Prokopiou" },
-            { rank: 62, id: "62", name: "H3", length: "105.0m", builder: "Oceanco", year: 2023, mmsi: "319241900", imo: "1010365", flag: "Cayman Islands", owner: "Waleed bin Ibrahim Al Ibrahim" },
-            { rank: 63, id: "63", name: "Lady Moura", length: "104.8m", builder: "Blohm+Voss", year: 1990, mmsi: "319008900", imo: "1002221", flag: "Cayman Islands", owner: "Ricardo Salinas Pliego" },
-            { rank: 64, id: "64", name: "Quantum Blue", length: "104.0m", builder: "Lürssen", year: 2014, mmsi: "319072800", imo: "1012218", flag: "Cayman Islands", owner: "Sergey Galitsky" },
-            { rank: 65, id: "65", name: "Symphony", length: "101.5m", builder: "Feadship", year: 2015, mmsi: "319081200", imo: "1012402", flag: "Cayman Islands", owner: "Bernard Arnault" },
-            { rank: 66, id: "66", name: "Moonrise", length: "99.9m", builder: "Feadship", year: 2020, mmsi: "319176300", imo: "9816206", flag: "Cayman Islands", owner: "Jan Koum" },
-            { rank: 67, id: "67", name: "Christina O", length: "99.1m", builder: "Canadian Vickers", year: 1943, mmsi: "237013000", imo: "8963818", flag: "Greece", owner: "Ivor Fitzpatrick" },
-            { rank: 68, id: "68", name: "Madame Gu", length: "99.0m", builder: "Feadship", year: 2013, mmsi: "319053800", imo: "1011381", flag: "Cayman Islands", owner: "Andrei Skoch" },
-            { rank: 69, id: "69", name: "Aviva", length: "98.4m", builder: "Abeking & Rasmussen", year: 2017, mmsi: "319112900", imo: "1012957", flag: "Cayman Islands", owner: "Joe Lewis" },
-            { rank: 70, id: "70", name: "Carinthia VII", length: "97.2m", builder: "Lürssen", year: 2002, mmsi: "248039000", imo: "1007207", flag: "Malta", owner: "Ruben Scherpenhuizen" },
-            { rank: 71, id: "71", name: "Faith", length: "96.6m", builder: "Feadship", year: 2017, mmsi: "319112100", imo: "1012828", flag: "Cayman Islands", owner: "Lawrence Stroll" },
-            { rank: 72, id: "72", name: "Vava II", length: "96.0m", builder: "Devonport", year: 2012, mmsi: "319037300", imo: "1010389", flag: "Cayman Islands", owner: "Ernesto Bertarelli" },
-            { rank: 73, id: "73", name: "Whisper (ex-Kismet)", length: "95.2m", builder: "Lürssen", year: 2014, mmsi: "319070300", imo: "1012177", flag: "Cayman Islands", owner: "Eric Schmidt" },
-            { rank: 74, id: "74", name: "CC-Summer", length: "95.0m", builder: "Lürssen", year: 2019, mmsi: "319156700", imo: "1013080", flag: "Cayman Islands", owner: "Terry Taylor" },
-            { rank: 75, id: "75", name: "O'Pari", length: "95.0m", builder: "Golden Yachts", year: 2020, mmsi: "237027800", imo: "9882281", flag: "Greece", owner: "Paris Dragnis" },
-            { rank: 76, id: "76", name: "Bliss", length: "95.0m", builder: "Feadship", year: 2021, mmsi: "319213500", imo: "9855264", flag: "Cayman Islands", owner: "Evan Spiegel" },
-            { rank: 77, id: "77", name: "Viva", length: "94.0m", builder: "Feadship", year: 2021, mmsi: "319207800", imo: "9855252", flag: "Cayman Islands", owner: "Frank Wang" },
-            { rank: 78, id: "78", name: "Mayan Queen IV", length: "93.2m", builder: "Blohm+Voss", year: 2008, mmsi: "319005400", imo: "1009219", flag: "Cayman Islands", owner: "Baillères Family" },
-            { rank: 79, id: "79", name: "Lady S", length: "93.0m", builder: "Feadship", year: 2019, mmsi: "319153500", imo: "1013012", flag: "Cayman Islands", owner: "Dan Snyder" },
-            { rank: 80, id: "80", name: "Tatoosh", length: "92.4m", builder: "Nobiskrug", year: 2000, mmsi: "319003800", imo: "1006336", flag: "Cayman Islands", owner: "Paul Allen Estate" },
-            { rank: 81, id: "81", name: "Aquarius", length: "92.0m", builder: "Feadship", year: 2016, mmsi: "319102800", imo: "1012804", flag: "Cayman Islands", owner: "Steve Wynn" },
-            { rank: 82, id: "82", name: "Drizzle", length: "91.8m", builder: "Feadship", year: 2024, mmsi: "319261200", imo: "9882944", flag: "Cayman Islands", owner: "Amancio Ortega" },
-            { rank: 83, id: "83", name: "Tranquility", length: "91.5m", builder: "Oceanco", year: 2014, mmsi: "319058900", imo: "1012090", flag: "Cayman Islands", owner: "Genting Group" },
-            { rank: 84, id: "84", name: "Dar", length: "90.1m", builder: "Oceanco", year: 2018, mmsi: "319130800", imo: "1012921", flag: "Cayman Islands", owner: "Ziyad Manasir" },
-            { rank: 85, id: "85", name: "Nero", length: "90.1m", builder: "Yantai Raffles", year: 2007, mmsi: "319001400", imo: "1008542", flag: "Cayman Islands", owner: "Denis O'Brien" },
-            { rank: 86, id: "86", name: "NORN", length: "90.0m", builder: "Lürssen", year: 2023, mmsi: "319245100", imo: "9862217", flag: "Cayman Islands", owner: "Charles Simonyi" },
-            { rank: 87, id: "87", name: "Lionheart", length: "90.0m", builder: "Benetti", year: 2016, mmsi: "319091900", imo: "1012323", flag: "Cayman Islands", owner: "Philip Green" },
-            { rank: 88, id: "88", name: "DreAMBoat", length: "90.0m", builder: "Oceanco", year: 2019, mmsi: "319150100", imo: "1013092", flag: "Cayman Islands", owner: "Arthur Blank" },
-            { rank: 89, id: "89", name: "Here Comes The Sun", length: "89.0m", builder: "Amels", year: 2017, mmsi: "319100800", imo: "1012880", flag: "Cayman Islands", owner: "Graeme Hart" },
-            { rank: 90, id: "90", name: "Olivia O", length: "88.5m", builder: "Ulstein Verft", year: 2020, mmsi: "319171700", imo: "9818400", flag: "Cayman Islands", owner: "Eyal Ofer" },
-            { rank: 91, id: "91", name: "Nirvana", length: "88.5m", builder: "Oceanco", year: 2012, mmsi: "319042200", imo: "1011663", flag: "Cayman Islands", owner: "Vladimir Potanin" },
-            { rank: 92, id: "92", name: "Samsara", length: "88.5m", builder: "Oceanco", year: 2015, mmsi: "319077900", imo: "1012270", flag: "Cayman Islands", owner: "JK Rowling" },
-            { rank: 93, id: "93", name: "Illusion Plus", length: "88.5m", builder: "Pride Mega Yachts", year: 2018, mmsi: "319133600", imo: "1012892", flag: "Cayman Islands", owner: "Jan Cameron" },
-            { rank: 94, id: "94", name: "Maltese Falcon", length: "88.0m", builder: "Perini Navi", year: 2006, mmsi: "249821000", imo: "9384552", flag: "Malta", owner: "Elena Ambrosiadou" },
-            { rank: 95, id: "95", name: "Zen", length: "88.0m", builder: "Feadship", year: 2021, mmsi: "319213100", imo: "9855276", flag: "Cayman Islands", owner: "Guan Weidong" },
-            { rank: 96, id: "96", name: "Kingdom 5KR", length: "85.7m", builder: "Benetti", year: 1980, mmsi: "403000020", imo: "1002219", flag: "Saudi Arabia", owner: "Al-Waleed bin Talal" },
-            { rank: 97, id: "97", name: "Wanderlust", length: "85.3m", builder: "SilverYachts", year: 2022, mmsi: "538010078", imo: "9924986", flag: "Marshall Islands", owner: "Yachting Syndicate" },
-            { rank: 98, id: "98", name: "Pacific", length: "85.2m", builder: "Lürssen", year: 2010, mmsi: "319024800", imo: "1010325", flag: "Cayman Islands", owner: "Leonid Mikhelson" },
-            { rank: 99, id: "99", name: "Sea Pearl (ex-Secret)", length: "82.5m", builder: "Abeking & Rasmussen", year: 2013, mmsi: "319053200", imo: "1011587", flag: "Cayman Islands", owner: "Sri Prakash Lohia" },
-            { rank: 100, id: "100", name: "Alfa Nero", length: "82.0m", builder: "Oceanco", year: 2007, mmsi: "319000200", imo: "1009376", flag: "Antigua & Barbuda", owner: "Government of Antigua (Auctioned)" }
-        ];
-
-        let savedIds = JSON.parse(localStorage.getItem('saved_yachts') || '[]');
-        let currentTab = 'all';
-
-        function updateSavedCount() {
-            document.getElementById('saved-count').innerText = savedIds.length;
-        }
-
-        function toggleSave(id) {
-            if (savedIds.includes(id)) {
-                savedIds = savedIds.filter(i => i !== id);
-            } else {
-                savedIds.push(id);
-            }
-            localStorage.setItem('saved_yachts', JSON.stringify(savedIds));
-            updateSavedCount();
-            renderGrid();
-        }
-
-        function renderGrid() {
-            const grid = document.getElementById('yacht-grid');
-            const search = document.getElementById('search').value.toLowerCase();
-            
-            grid.innerHTML = '';
-
-            const filtered = yachts.filter(y => {
-                const matchesSearch = y.name.toLowerCase().includes(search) || 
-                                     y.owner.toLowerCase().includes(search) || 
-                                     y.builder.toLowerCase().includes(search) ||
-                                     y.flag.toLowerCase().includes(search) ||
-                                     y.mmsi.includes(search);
-                const matchesTab = currentTab === 'all' || savedIds.includes(y.id);
-                return matchesSearch && matchesTab;
-            });
-
-            filtered.forEach(y => {
-                const isSaved = savedIds.includes(y.id);
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-header">
-                        <div>
-                            <div class="yacht-rank">#${y.rank} Largest</div>
-                            <div class="yacht-name">${y.name}</div>
-                            <div class="yacht-meta">${y.builder} • ${y.year}</div>
-                        </div>
-                        <span class="badge">${y.length}</span>
-                    </div>
-
-                    <div class="details-list">
-                        <div class="detail-item full-width">
-                            <span class="detail-label">Beneficial Owner</span>
-                            <span class="detail-value">${y.owner}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Flag State</span>
-                            <span class="detail-value">${y.flag}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">MMSI / IMO</span>
-                            <span class="detail-value">${y.mmsi} / ${y.imo}</span>
-                        </div>
-                    </div>
-
-                    <div class="card-actions">
-                        <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:${y.mmsi}" 
-                           target="_blank" rel="noopener noreferrer" class="btn btn-primary">Live Satellite GPS</a>
-                        <button class="btn btn-bookmark ${isSaved ? 'active' : ''}" onclick="toggleSave('${y.id}')">
-                            ${isSaved ? 'Saved' : 'Bookmark'}
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filterYachts() {
-            renderGrid();
-        }
-
-        function switchTab(tab, el) {
-            currentTab = tab;
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-            if(el) el.classList.add('active');
-            renderGrid();
-        }
-
-        async function openCamera() {
-            const modal = document.getElementById('camera-modal');
-            const video = document.getElementById('webcam');
-            modal.classList.add('active');
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                video.srcObject = stream;
-            } catch (err) {
-                alert("Camera access denied or unavailable.");
-                closeCamera();
-            }
-        }
-
-        function closeCamera() {
-            const modal = document.getElementById('camera-modal');
-            const video = document.getElementById('webcam');
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(track => track.stop());
-            }
-            modal.classList.remove('active');
-        }
-
-        updateSavedCount();
-        renderGrid();
-    </script>
-</body>
-</html>
+            { rank: 1, id: "1", name: "Azzam", length: "180.6m", builder: "Lürssen", year: 2013, mmsi: "470314000", imo: "9693367", flag: "UAE", ownerName: "Sheikh Mohamed bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Mohamed_bin_Zayed_Al_Nahyan" },
+            { rank: 2, id: "2", name: "Fulk Al Salamah", length: "164.0m", builder: "Mariotti", year: 2016, mmsi: "461002000", imo: "9714460", flag: "Oman", ownerName: "Royal Flight of Oman", ownerWiki: "https://en.wikipedia.org/wiki/Haitham_bin_Tariq" },
+            { rank: 3, id: "3", name: "Eclipse", length: "162.5m", builder: "Blohm+Voss", year: 2010, mmsi: "319022900", imo: "1009619", flag: "Bermuda", ownerName: "Roman Abramovich", ownerWiki: "https://en.wikipedia.org/wiki/Roman_Abramovich" },
+            { rank: 4, id: "4", name: "Dubai", length: "162.0m", builder: "Platinum Yachts", year: 2006, mmsi: "470119000", imo: "1006879", flag: "UAE", ownerName: "Sheikh Mohammed bin Rashid Al Maktoum", ownerWiki: "https://en.wikipedia.org/wiki/Mohammed_bin_Rashid_Al_Maktoum" },
+            { rank: 5, id: "5", name: "Blue", length: "160.0m", builder: "Lürssen", year: 2022, mmsi: "319228300", imo: "9862231", flag: "Cayman Islands", ownerName: "Sheikh Mansour bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Mansour_bin_Zayed_Al_Nahyan" },
+            { rank: 6, id: "6", name: "Dilbar", length: "156.0m", builder: "Lürssen", year: 2016, mmsi: "319097100", imo: "9783813", flag: "Cayman Islands", ownerName: "Alisher Usmanov", ownerWiki: "https://en.wikipedia.org/wiki/Alisher_Usmanov" },
+            { rank: 7, id: "7", name: "Al Said", length: "155.0m", builder: "Lürssen", year: 2008, mmsi: "461000018", imo: "9442100", flag: "Oman", ownerName: "Sultanate of Oman", ownerWiki: "https://en.wikipedia.org/wiki/Sultanate_of_Oman" },
+            { rank: 8, id: "8", name: "A+", length: "147.2m", builder: "Lürssen", year: 2012, mmsi: "319041200", imo: "1011501", flag: "Cayman Islands", ownerName: "Sheikh Mansour bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Mansour_bin_Zayed_Al_Nahyan" },
+            { rank: 9, id: "9", name: "Prince Abdulaziz", length: "147.0m", builder: "Helsingør Værft", year: 1984, mmsi: "403001000", imo: "1003308", flag: "Saudi Arabia", ownerName: "House of Saud", ownerWiki: "https://en.wikipedia.org/wiki/House_of_Saud" },
+            { rank: 10, id: "10", name: "Opera", length: "146.3m", builder: "Lürssen", year: 2023, mmsi: "319241400", imo: "9862243", flag: "Cayman Islands", ownerName: "Sheikh Abdullah bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Abdullah_bin_Zayed_Al_Nahyan" },
+            { rank: 11, id: "11", name: "El Mahrousa", length: "145.7m", builder: "Samuda Brothers", year: 1865, mmsi: "622111110", imo: "1001879", flag: "Egypt", ownerName: "Egyptian Navy", ownerWiki: "https://en.wikipedia.org/wiki/El_Mahrousa" },
+            { rank: 12, id: "12", name: "Sailing Yacht A", length: "142.8m", builder: "Nobiskrug", year: 2017, mmsi: "319111000", imo: "1012141", flag: "Isle of Man", ownerName: "Andrey Melnichenko", ownerWiki: "https://en.wikipedia.org/wiki/Andrey_Melnichenko" },
+            { rank: 13, id: "13", name: "Dragonfly", length: "142.0m", builder: "Lürssen", year: 2024, mmsi: "319262100", imo: "9862267", flag: "Cayman Islands", ownerName: "Sergey Brin", ownerWiki: "https://en.wikipedia.org/wiki/Sergey_Brin" },
+            { rank: 14, id: "14", name: "Nord", length: "142.0m", builder: "Lürssen", year: 2021, mmsi: "273243710", imo: "9853785", flag: "Russia", ownerName: "Alexey Mordashov", ownerWiki: "https://en.wikipedia.org/wiki/Alexey_Mordashov" },
+            { rank: 15, id: "15", name: "Yas", length: "141.0m", builder: "ADM Shipyards", year: 2015, mmsi: "470984000", imo: "8835140", flag: "UAE", ownerName: "Sheikh Hamdan bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Hamdan_bin_Zayed_bin_Sultan_Al_Nahyan" },
+            { rank: 16, id: "16", name: "Ocean Victory", length: "140.0m", builder: "Fincantieri", year: 2014, mmsi: "319055400", imo: "1011850", flag: "Cayman Islands", ownerName: "Viktor Rashnikov", ownerWiki: "https://en.wikipedia.org/wiki/Viktor_Rashnikov" },
+            { rank: 17, id: "17", name: "Scheherazade", length: "140.0m", builder: "Lürssen", year: 2020, mmsi: "319179200", imo: "9809980", flag: "Cayman Islands", ownerName: "Eduard Khudainatov", ownerWiki: "https://en.wikipedia.org/wiki/Eduard_Khudainatov" },
+            { rank: 18, id: "18", name: "Solaris", length: "139.7m", builder: "Lloyd Werft", year: 2021, mmsi: "273246320", imo: "9818826", flag: "Russia", ownerName: "Roman Abramovich", ownerWiki: "https://en.wikipedia.org/wiki/Roman_Abramovich" },
+            { rank: 19, id: "19", name: "Al Salamah", length: "139.3m", builder: "Lürssen", year: 1999, mmsi: "403000030", imo: "1006427", flag: "Saudi Arabia", ownerName: "Salman bin Abdulaziz Al Saud", ownerWiki: "https://en.wikipedia.org/wiki/Salman_of_Saudi_Arabia" },
+            { rank: 20, id: "20", name: "Luminance", length: "138.8m", builder: "Lürssen", year: 2024, mmsi: "319262100", imo: "9862267", flag: "Cayman Islands", ownerName: "Rinat Akhmetov", ownerWiki: "https://en.wikipedia.org/wiki/Rinat_Akhmetov" },
+            { rank: 21, id: "21", name: "Rising Sun", length: "138.6m", builder: "Lürssen", year: 2004, mmsi: "319011100", imo: "8982307", flag: "Cayman Islands", ownerName: "David Geffen", ownerWiki: "https://en.wikipedia.org/wiki/David_Geffen" },
+            { rank: 22, id: "22", name: "Flying Fox", length: "136.0m", builder: "Lürssen", year: 2019, mmsi: "319153800", imo: "9829394", flag: "Cayman Islands", ownerName: "Dmitry Kamenshchik", ownerWiki: "https://en.wikipedia.org/wiki/Dmitry_Kamenshchik" },
+            { rank: 23, id: "23", name: "Radiant", length: "136.0m", builder: "Lürssen", year: 2009, mmsi: "319014800", imo: "1010016", flag: "Cayman Islands", ownerName: "Abdulla Al Futtaim", ownerWiki: "https://en.wikipedia.org/wiki/Abdulla_Al_Futtaim" },
+            { rank: 24, id: "24", name: "Savarona", length: "135.9m", builder: "Blohm+Voss", year: 1931, mmsi: "271000213", imo: "5314769", flag: "Turkey", ownerName: "Republic of Turkey", ownerWiki: "https://en.wikipedia.org/wiki/Savarona" },
+            { rank: 25, id: "25", name: "Crescent", length: "135.5m", builder: "Lürssen", year: 2018, mmsi: "319133800", imo: "9785108", flag: "Cayman Islands", ownerName: "Igor Sechin", ownerWiki: "https://en.wikipedia.org/wiki/Igor_Sechin" },
+            { rank: 26, id: "26", name: "Serene", length: "133.9m", builder: "Fincantieri", year: 2011, mmsi: "319021900", imo: "1010092", flag: "Cayman Islands", ownerName: "Mohammed bin Salman", ownerWiki: "https://en.wikipedia.org/wiki/Mohammed_bin_Salman" },
+            { rank: 27, id: "27", name: "Al Mirqab", length: "133.0m", builder: "Kusch Yachts", year: 2008, mmsi: "319002200", imo: "1009221", flag: "Cayman Islands", ownerName: "Hamad bin Jassim bin Jaber Al Thani", ownerWiki: "https://en.wikipedia.org/wiki/Hamad_bin_Jassim_bin_Jaber_Al_Thani" },
+            { rank: 28, id: "28", name: "Koru", length: "127.0m", builder: "Oceanco", year: 2023, mmsi: "319234800", imo: "9925289", flag: "Cayman Islands", ownerName: "Jeff Bezos", ownerWiki: "https://en.wikipedia.org/wiki/Jeff_Bezos" },
+            { rank: 29, id: "29", name: "Octopus", length: "126.2m", builder: "Lürssen", year: 2003, mmsi: "319011700", imo: "1007269", flag: "Cayman Islands", ownerName: "Roger Vance", ownerWiki: "https://en.wikipedia.org/wiki/Octopus_(yacht)" },
+            { rank: 30, id: "30", name: "Maryah", length: "125.0m", builder: "Elefsis Shipyards", year: 2014, mmsi: "319066400", imo: "9044619", flag: "Cayman Islands", ownerName: "Sheikh Tahnoun bin Zayed Al Nahyan", ownerWiki: "https://en.wikipedia.org/wiki/Tahnoun_bin_Zayed_Al_Nahyan_(born_1968)" },
+            { rank: 31, id: "31", name: "Katara", length: "124.4m", builder: "Lürssen", year: 2010, mmsi: "319020400", imo: "1010133", flag: "Cayman Islands", ownerName: "Tamim bin Hamad Al Thani", ownerWiki: "https://en.wikipedia.org/wiki/Tamim_bin_Hamad_Al_Thani" },
+            { rank: 32, id: "32", name: "Golden Odyssey", length: "123.2m", builder: "Lürssen", year: 2015, mmsi: "319082300", imo: "9648783", flag: "Bermuda", ownerName: "Guangzhou R&F Properties", ownerWiki: "https://en.wikipedia.org/wiki/Guangzhou_R%26F_Properties" },
+            { rank: 33, id: "33", name: "Al Lusail", length: "123.0m", builder: "Lürssen", year: 2017, mmsi: "319118300", imo: "9771107", flag: "Cayman Islands", ownerName: "Tamim bin Hamad Al Thani", ownerWiki: "https://en.wikipedia.org/wiki/Tamim_bin_Hamad_Al_Thani" },
+            { rank: 34, id: "34", name: "Kismet", length: "122.0m", builder: "Lürssen", year: 2024, mmsi: "319262900", imo: "9862229", flag: "Cayman Islands", ownerName: "Shahid Khan", ownerWiki: "https://en.wikipedia.org/wiki/Shahid_Khan" },
+            { rank: 35, id: "35", name: "MYZAN", length: "122.0m", builder: "Lürssen", year: 2024, mmsi: "319273100", imo: "9862255", flag: "Cayman Islands", ownerName: "Private Royal Fleet", ownerWiki: "https://en.wikipedia.org/wiki/List_of_motor_yachts_by_length" },
+            { rank: 36, id: "36", name: "Alexander", length: "122.0m", builder: "Flender Werke", year: 1965, mmsi: "240046000", imo: "6511116", flag: "Greece", ownerName: "Latsis Family", ownerWiki: "https://en.wikipedia.org/wiki/John_Latsis" },
+            { rank: 37, id: "37", name: "A", length: "119.0m", builder: "Blohm+Voss", year: 2008, mmsi: "319001100", imo: "1009340", flag: "Cayman Islands", ownerName: "Andrey Melnichenko", ownerWiki: "https://en.wikipedia.org/wiki/Andrey_Melnichenko" },
+            { rank: 38, id: "38", name: "Launchpad", length: "118.9m", builder: "Feadship", year: 2024, mmsi: "319268800", imo: "9860362", flag: "Cayman Islands", ownerName: "Mark Zuckerberg", ownerWiki: "https://en.wikipedia.org/wiki/Mark_Zuckerberg" },
+            { rank: 39, id: "39", name: "Breakthrough", length: "118.8m", builder: "Feadship", year: 2025, mmsi: "319270000", imo: "9860374", flag: "Cayman Islands", ownerName: "Feadship Royal Dutch", ownerWiki: "https://en.wikipedia.org/wiki/Feadship" },
+            { rank: 40, id: "40", name: "Liva O", length: "118.2m", builder: "Abeking & Rasmussen", year: 2023, mmsi: "319245800", imo: "9882956", flag: "Cayman Islands", ownerName: "Joseph Lau", ownerWiki: "https://en.wikipedia.org/wiki/Joseph_Lau" },
+            { rank: 41, id: "41", name: "Infinity", length: "117.0m", builder: "Oceanco", year: 2022, mmsi: "319225700", imo: "9783069", flag: "Cayman Islands", ownerName: "Eric Smidt", ownerWiki: "https://en.wikipedia.org/wiki/Eric_Smidt" },
+            { rank: 42, id: "42", name: "Turama", length: "116.4m", builder: "Rauma Shipyard", year: 1990, mmsi: "240212000", imo: "8907212", flag: "Greece", ownerName: "Latsis Family", ownerWiki: "https://en.wikipedia.org/wiki/John_Latsis" },
+            { rank: 43, id: "43", name: "Multiverse", length: "116.0m", builder: "Kleven", year: 2018, mmsi: "319131200", imo: "1012907", flag: "Cayman Islands", ownerName: "Yuri Milner", ownerWiki: "https://en.wikipedia.org/wiki/Yuri_Milner" },
+            { rank: 44, id: "44", name: "Ahpo", length: "115.1m", builder: "Lürssen", year: 2021, mmsi: "319223100", imo: "9855288", flag: "Cayman Islands", ownerName: "Patrick Dovigi", ownerWiki: "https://en.wikipedia.org/wiki/Patrick_Dovigi" },
+            { rank: 45, id: "45", name: "Pelorus", length: "115.0m", builder: "Lürssen", year: 2003, mmsi: "319028800", imo: "1007295", flag: "Cayman Islands", ownerName: "Samuel Tak Lee", ownerWiki: "https://en.wikipedia.org/wiki/Samuel_Tak_Lee" },
+            { rank: 46, id: "46", name: "Luna", length: "115.0m", builder: "Lloyd Werft", year: 2010, mmsi: "538007212", imo: "1010224", flag: "Marshall Islands", ownerName: "Farkhad Akhmedov", ownerWiki: "https://en.wikipedia.org/wiki/Farkhad_Akhmedov" },
+            { rank: 47, id: "47", name: "Atlantis II", length: "115.8m", builder: "Hellenic Shipyards", year: 1981, mmsi: "309252000", imo: "1001415", flag: "Bahamas", ownerName: "Stavros Niarchos Estate", ownerWiki: "https://en.wikipedia.org/wiki/Stavros_Niarchos" },
+            { rank: 48, id: "48", name: "Grand Bleu", length: "113.0m", builder: "Bremer Vulkan", year: 2000, mmsi: "319023100", imo: "1006829", flag: "Bermuda", ownerName: "Eugene Shvidler", ownerWiki: "https://en.wikipedia.org/wiki/Eugene_Shvidler" },
+            { rank: 49, id: "49", name: "Renaissance", length: "112.0m", builder: "Freire Shipyard", year: 2023, mmsi: "319246100", imo: "9863417", flag: "Cayman Islands", ownerName: "A. Gary Klesch", ownerWiki: "https://en.wikipedia.org/wiki/Gary_Klesch" },
+            { rank: 50, id: "50", name: "Al Raya", length: "110.0m", builder: "Lürssen", year: 2008, mmsi: "403000010", imo: "1009180", flag: "Saudi Arabia", ownerName: "Royal Family of Saudi Arabia", ownerWiki: "https://en.wikipedia.org/wiki/House_of_Saud" },
+            { rank: 51, id: "51", name: "Anna", length: "110.0m", builder: "Feadship", year: 2018, mmsi: "319131600", imo: "1012971", flag: "Cayman Islands", ownerName: "Dmitry Rybolovlev", ownerWiki: "https://en.wikipedia.org/wiki/Dmitry_Rybolovlev" },
+            { rank: 52, id: "52", name: "Kaos", length: "110.0m", builder: "Oceanco", year: 2017, mmsi: "319113800", imo: "1012610", flag: "Cayman Islands", ownerName: "Nancy Walton Laurie", ownerWiki: "https://en.wikipedia.org/wiki/Nancy_Walton_Laurie" },
+            { rank: 53, id: "53", name: "Bravo Eugenia", length: "109.0m", builder: "Oceanco", year: 2018, mmsi: "319154300", imo: "1012983", flag: "Cayman Islands", ownerName: "Jerry Jones", ownerWiki: "https://en.wikipedia.org/wiki/Jerry_Jones" },
+            { rank: 54, id: "54", name: "Seven Seas", length: "109.0m", builder: "Oceanco", year: 2022, mmsi: "319230500", imo: "9882932", flag: "Cayman Islands", ownerName: "Steven Spielberg", ownerWiki: "https://en.wikipedia.org/wiki/Steven_Spielberg" },
+            { rank: 55, id: "55", name: "Shackleton", length: "109.0m", builder: "Lürssen", year: 2024, mmsi: "319271100", imo: "9862279", flag: "Cayman Islands", ownerName: "Lürssen Werft", ownerWiki: "https://en.wikipedia.org/wiki/L%C3%BCrsssen" },
+            { rank: 56, id: "56", name: "IJE", length: "108.0m", builder: "Benetti", year: 2019, mmsi: "538008272", imo: "1013000", flag: "Marshall Islands", ownerName: "James Packer", ownerWiki: "https://en.wikipedia.org/wiki/James_Packer" },
+            { rank: 57, id: "57", name: "Andromeda", length: "107.0m", builder: "Kleven", year: 2015, mmsi: "319085800", imo: "9746023", flag: "Cayman Islands", ownerName: "Graeme Hart", ownerWiki: "https://en.wikipedia.org/wiki/Graeme_Hart" },
+            { rank: 58, id: "58", name: "Luminosity", length: "107.6m", builder: "Benetti", year: 2020, mmsi: "319149700", imo: "9816153", flag: "Cayman Islands", ownerName: "Kutayba Alghanim", ownerWiki: "https://en.wikipedia.org/wiki/Kutayba_Alghanim" },
+            { rank: 59, id: "59", name: "Black Pearl", length: "106.7m", builder: "Oceanco", year: 2018, mmsi: "319129900", imo: "1012490", flag: "Cayman Islands", ownerName: "Oleg Burlakov Estate", ownerWiki: "https://en.wikipedia.org/wiki/Black_Pearl_(yacht)" },
+            { rank: 60, id: "60", name: "Amadea", length: "106.1m", builder: "Lürssen", year: 2017, mmsi: "319111800", imo: "1012531", flag: "Cayman Islands", ownerName: "Suleiman Kerimov", ownerWiki: "
